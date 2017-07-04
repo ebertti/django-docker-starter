@@ -1,0 +1,16 @@
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# pycharm
+.idea
+
+# projeto
+/web/static/media
+/web/static/apps
+/etc/log
+
+/web/project/settings/local.py
+/docker-compose.override.yml
+/etc/build/
