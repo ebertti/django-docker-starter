@@ -27,7 +27,7 @@ HOJE = date.today().strftime('%Y-%m-%d') # para log de dev
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-env = environ.Env(DEBUG=(bool, False),)
+env = environ.Env()
 env_path = '{}.env'.format(os.environ.get('STAGE', 'dev'))
 # carregar arquivo de configuracao, ideal para staging ou prod
 environ.Env.read_env(str(SETTINGS_DIR.path('{}.env'.format(os.environ.get('STAGE', 'dev')))))
@@ -123,6 +123,21 @@ DATABASES = {
     'default': env.db(default='psql://site:site@{}:5432/site'.format(DOCKER_IP))
 }
 
+# region Session
+
+REDIS_IP = env.str('REDIS_IP', DOCKER_IP)
+
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_HOST = REDIS_IP
+SESSION_REDIS_PORT = 6379
+SESSION_REDIS_DB = 12
+SESSION_REDIS_SOCKET_TIMEOUT = 1
+
+# endregion
+
+CACHES = {
+    'default': env.cache(default='rediscache://{}:6379/1?client_class=django_redis.client.DefaultClient'.format(REDIS_IP))
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -203,7 +218,7 @@ LOGGING = {
     'handlers': {
         'arquivo_temp': {
             'class': 'logging.FileHandler',
-            'filename': str(ROOT_DIR.path('etc/log/dev_' + HOJE + '.txt'))
+            'filename': str(ROOT_DIR.path('etc/logs/dev_' + HOJE + '.txt'))
         },
         'mail_admins': {
             'level': 'ERROR',

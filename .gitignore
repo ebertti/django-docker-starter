@@ -9,7 +9,7 @@ __pycache__/
 # projeto
 /web/static/media
 /web/static/apps
-/etc/log
+/etc/logs
 
 /web/project/settings/local.py
 /docker-compose.override.yml

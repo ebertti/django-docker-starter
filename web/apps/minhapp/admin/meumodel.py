@@ -1,6 +1,7 @@
 from django.contrib import admin
-from django.contrib.admin.options import BaseModelAdmin
+
+from base.admin.mixin import BaseAdminMixin
 
 
-class MeuModelAdmin(BaseModelAdmin, admin.ModelAdmin):
+class MeuModelAdmin(BaseAdminMixin, admin.ModelAdmin):
     pass

@@ -1,8 +1,11 @@
 django==1.11.3
+psycopg2==2.7.1
 django-environ==0.4.3
 django-admin-easy==0.3.2
 django-choices==1.5.1
 addict==2.1.0
+django-redis-sessions==0.5.6
+django-redis==4.8.0
 
 # dev
 django-debug-toolbar==1.8
