@@ -1,0 +1,4 @@
+
+
+class BaseModelMixin():
+    pass

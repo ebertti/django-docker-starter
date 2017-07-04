@@ -1,0 +1,3 @@
+
+
+from .meumodel import MeuModel

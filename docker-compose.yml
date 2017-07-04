@@ -1,0 +1,53 @@
+version: '2'
+
+services:
+  postgres:
+    build: ./docker/postgres
+    volumes:
+      - data_postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "site"
+    ports:
+      - "5432:5432"
+
+  redis:
+    build: ./docker/redis
+    volumes:
+      - data_redis:/data
+    ports:
+      - "6379:6379"
+
+  maildev:
+    build: ./docker/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+
+  # o volume do web soh funciona se o projeto rodar
+  # em maquina win10 pro, linux ou mac
+  # para docker-toolbox, o projeto deve ser rodado na pasta home do usuario
+  web:
+    build: ./web
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./web:/var/code
+    ports:
+      - "8000:8000"
+
+    environment:
+      - DB_HOST_LEGACY=postgres
+      - DB_HOST=postgres
+      - REDIS_IP=redis
+      - DJANGO_SETTINGS_MODULE=project.settings.dev
+
+    depends_on:
+      - postgres
+      - redis
+      - maildev
+
+volumes:
+  data_redis:
+    driver: local
+
+  data_postgres:
+    driver: local
