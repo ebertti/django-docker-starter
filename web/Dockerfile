@@ -1,4 +1,4 @@
-FROM bizcapdev/base-python-alpine-django
+FROM 3.6.1-alpine
 
 ENV PACOTES build-dependencies linux-headers postgresql-dev make gcc \
   g++ ca-certificates zlib-dev jpeg-dev tiff-dev freetype-dev lcms2-dev \
