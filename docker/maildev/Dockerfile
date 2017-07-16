@@ -1,3 +1,3 @@
 FROM djfarrelly/maildev
 
-CMD ["bin/maildev", "--incoming-user", "bizcap", "--incoming-pass", "bizcap"]
+CMD ["bin/maildev", "--incoming-user", "django", "--incoming-pass", "django"]
